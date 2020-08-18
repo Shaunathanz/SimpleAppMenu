@@ -1,6 +1,6 @@
 /**
  * @author shaungraham
- * @version 1.1
+ * @version 1.2
  */
 
 import java.util.ArrayList;
@@ -28,13 +28,12 @@ public final class AppMenu
 		ArrayList<String> options = new ArrayList<String>();
 		
 		//ADD OPTIONS HERE//////////////////////
-		options.add(new String("Lab 6"));
-		options.add(new String("Exercise 6"));
+		options.add(new String("Order 66"));
 		////////////////////////////////////////
 		
 		do
 		{
-			exitValue = (options.size() + 1);
+			exitValue = -1;
 			input = 0;
 			boolean validInput = false;
 			
@@ -42,11 +41,11 @@ public final class AppMenu
 			{
 				//PRESENT OPTIONS			 
 				System.out.println("Make a selection:");
+				System.out.println(exitValue + ") Exit");
 				for(int i = 0; i < options.size(); i++)
 				{
 					System.out.println((i + 1) + ") " + options.get(i));
 				}
-				System.out.println( (options.size() + 1) + ") Exit");
 				
 				//GET MENU SELECTION FROM USER
 				try
@@ -80,12 +79,7 @@ public final class AppMenu
 			{
 				case 1:
 				{
-					new Lab6App();
-					break;
-				}
-				case 2:
-				{
-					new Exercise6App();
+					System.out.println("Output: Yes my Lord");
 					break;
 				}
 				default:
