@@ -4,90 +4,156 @@
  */
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.stage.Stage;
 
-public final class AppMenu 
+public final class AppMenu extends Application
 {
-	public static enum State {RUNNING, EXIT};
-	public static State state;
+	public final float VERSION = 1.2f;
+	public static ScrollPane sp = new ScrollPane();
 	
-	public static void main(String[] args)
+	@Override
+	public void start(Stage primaryStage) throws Exception 
 	{
-		state = State.RUNNING;
-		do
-		{
-			menu();
-		} while (state != State.EXIT);
-	}
-	
-	public static void menu()
-	{
-		Scanner scan = new Scanner(System.in);
-		int input, exitValue;
 		ArrayList<String> options = new ArrayList<String>();
 		
 		//ADD OPTIONS HERE//////////////////////
 		options.add(new String("Order 66"));
+		options.add(new String("Order 67"));
+		options.add(new String("Order 68"));
+		options.add(new String("Order 69"));
+		options.add(new String("..."));
+		options.add(new String("New Row!"));
+		options.add(new String("n/a"));
+		options.add(new String("n/a"));
+		options.add(new String("Lots of Text"));
 		////////////////////////////////////////
 		
-		do
+		GridPane grid = new GridPane();
+		int rowCursor = 0, colCursor = 0;
+		grid.setAlignment(Pos.BASELINE_CENTER);
+		grid.setHgap(10);
+		grid.setVgap(10);
+		grid.setPadding(new Insets(10, 10, 10, 10));
+        
+		//DISPLAY OPTIONS
+		for(int i = 0; i < options.size(); i++)
 		{
-			exitValue = -1;
-			input = 0;
-			boolean validInput = false;
-			
-			do
+			if(colCursor > 4)
 			{
-				//PRESENT OPTIONS			 
-				System.out.println("Make a selection:");
-				System.out.println(exitValue + ") Exit");
-				for(int i = 0; i < options.size(); i++)
-				{
-					System.out.println((i + 1) + ") " + options.get(i));
-				}
-				
-				//GET MENU SELECTION FROM USER
-				try
-				{
-					input = scan.nextInt();
-					validInput = true;
-				} 
-				catch (InputMismatchException e)
-				{
-					System.out.println("You must enter an integer value");
-					scan.next();
-				}
-				catch (Exception e)
-				{
-					System.out.println(e.toString());
-					scan.next();
-				}
-			} while (validInput != true);
+				++rowCursor;
+				colCursor = 0;
+			}
 			
-			//EXIT CHECK
-			if(input == exitValue)
+			final int currentIndex = i;
+			Button btn = new Button();
+	        btn.setText(options.get(i));
+	        btn.setOnAction(new EventHandler<ActionEvent>() 
+	        {
+	            @Override
+	            public void handle(ActionEvent event)
+	            {
+	                execute(currentIndex);
+	            }
+	        });
+	        grid.getChildren().add(btn);
+	        GridPane.setRowIndex(btn, rowCursor);
+	        GridPane.setColumnIndex(btn, colCursor);
+	        ++colCursor;
+		}
+		grid.getChildren().add(sp);
+		GridPane.setRowIndex(sp, rowCursor + 1);
+        GridPane.setColumnIndex(sp, 0);
+        GridPane.setColumnSpan(sp, 5);
+        GridPane.setRowSpan(sp, GridPane.REMAINING);
+		
+		
+		Scene scene = new Scene(grid, 550, 300);
+		primaryStage.setTitle("Simple App Menu ver " + VERSION);
+		primaryStage.setScene(scene);		
+		primaryStage.show();
+	}
+	
+	public static void main(String[] args)
+	{
+		try
+		{
+			launch(args);
+		} catch (Exception e)
+		{
+			System.out.println(e.getLocalizedMessage());
+		}
+	}
+	
+	/**
+	 * Execute menu selection
+	 * @param input
+	 */
+	public static void execute(int input)
+	{	
+		String output;
+		switch(input)
+		{
+			case 0:
 			{
-				state = State.EXIT;
-				System.out.println("Bye!");
-				scan.close();
+				output = ("Yes my lord");
 				break;
 			}
-			
-			//EXECUTE MENU SELECTION
-			switch(input)
+			case 1:
 			{
-				case 1:
-				{
-					System.out.println("Output: Yes my Lord");
-					break;
-				}
-				default:
-				{
-					System.out.println("Invalid task selection. Select a program or enter " + exitValue + " to exit the program.");
-					break;
-				}
+				output = ("Huh?");
+				break;
 			}
-		} while(state == State.RUNNING);
+			case 2:
+			{
+				output = ("...");
+				break;
+			}
+			case 3:
+			{
+				output = ("( ͡° ͜ʖ ͡°)");
+				break;
+			}
+			case 4:
+			{
+				output = ("...");
+				break;
+			}
+			case 5:
+			{
+				output = ("NEW ROW!");
+				break;
+			}
+			case 6:
+			{
+				output = ("...");
+				break;
+			}
+			case 7:
+			{
+				output = ("...");
+				break;
+			}
+			case 8:
+			{
+				output = ("asdasdasd\nasdasdasd\nasdasdasdasd\nasdasdasdasd\nasdasdasdas\nsdfsdfsdf\nsdfasdfasd\nasdasdasd\nasdasdasdasda\nsdfsdf\nsdfsdfsd\nsdfsdfs\nsdfsdfsd\nsdfsdfs\nHi mom.");
+				break;
+			}
+			default:
+			{
+				output = ("Invalid task selection.");
+				break;
+			}
+		}
+		sp.setContent(new Text(output));
 	}
 }
