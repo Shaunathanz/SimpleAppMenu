@@ -1,8 +1,3 @@
-/**
- * @author shaungraham
- * @version 1.2
- */
-
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,9 +11,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author shaungraham
+ *
+ * Add options to the options array list in the start() function then add the code to execute 
+ * in the execute() function below
+ */
 public final class AppMenu extends Application
 {
-	public final float VERSION = 1.2f;
+	public final float VERSION = 1.3f;
 	public static ScrollPane sp = new ScrollPane();
 	
 	@Override
@@ -36,9 +38,37 @@ public final class AppMenu extends Application
 		options.add(new String("n/a"));
 		options.add(new String("n/a"));
 		options.add(new String("Lots of Text"));
+		options.add(new String("Order 66"));
+		options.add(new String("Order 67"));
+		options.add(new String("Order 68"));
+		options.add(new String("Order 69"));
+		options.add(new String("..."));
+		options.add(new String("New Row!"));
+		options.add(new String("n/a"));
+		options.add(new String("n/a"));
+		options.add(new String("Lots of Text"));
+		options.add(new String("Order 66"));
+		options.add(new String("Order 67"));
+		options.add(new String("Order 68"));
+		options.add(new String("Order 69"));
+		options.add(new String("..."));
+		options.add(new String("New Row!"));
+		options.add(new String("n/a"));
+		options.add(new String("n/a"));
+		options.add(new String("Lots of Text"));
+		options.add(new String("Order 66"));
+		options.add(new String("Order 67"));
+		options.add(new String("Order 68"));
+		options.add(new String("Order 69"));
+		options.add(new String("..."));
+		options.add(new String("New Row!"));
+		options.add(new String("n/a"));
+		options.add(new String("n/a"));
+		options.add(new String("Lots of Text"));
 		////////////////////////////////////////
 		
 		GridPane grid = new GridPane();
+		ScrollPane sp2 = new ScrollPane(grid);
 		int rowCursor = 0, colCursor = 0;
 		grid.setAlignment(Pos.BASELINE_CENTER);
 		grid.setHgap(10);
@@ -56,6 +86,7 @@ public final class AppMenu extends Application
 			
 			final int currentIndex = i;
 			Button btn = new Button();
+			btn.setMinWidth(100);
 	        btn.setText(options.get(i));
 	        btn.setOnAction(new EventHandler<ActionEvent>() 
 	        {
@@ -77,21 +108,10 @@ public final class AppMenu extends Application
         GridPane.setRowSpan(sp, GridPane.REMAINING);
 		
 		
-		Scene scene = new Scene(grid, 550, 300);
+		Scene scene = new Scene(sp2, 590, 400);
 		primaryStage.setTitle("Simple App Menu ver " + VERSION);
 		primaryStage.setScene(scene);		
 		primaryStage.show();
-	}
-	
-	public static void main(String[] args)
-	{
-		try
-		{
-			launch(args);
-		} catch (Exception e)
-		{
-			System.out.println(e.getLocalizedMessage());
-		}
 	}
 	
 	/**
@@ -104,56 +124,48 @@ public final class AppMenu extends Application
 		switch(input)
 		{
 			case 0:
-			{
 				output = ("Yes my lord");
 				break;
-			}
 			case 1:
-			{
 				output = ("Huh?");
 				break;
-			}
 			case 2:
-			{
 				output = ("...");
 				break;
-			}
 			case 3:
-			{
 				output = ("( ͡° ͜ʖ ͡°)");
 				break;
-			}
 			case 4:
-			{
 				output = ("...");
 				break;
-			}
 			case 5:
-			{
 				output = ("NEW ROW!");
 				break;
-			}
 			case 6:
-			{
 				output = ("...");
 				break;
-			}
 			case 7:
-			{
 				output = ("...");
 				break;
-			}
 			case 8:
-			{
 				output = ("asdasdasd\nasdasdasd\nasdasdasdasd\nasdasdasdasd\nasdasdasdas\nsdfsdfsdf\nsdfasdfasd\nasdasdasd\nasdasdasdasda\nsdfsdf\nsdfsdfsd\nsdfsdfs\nsdfsdfsd\nsdfsdfs\nHiya.");
+				output += output += output += output += output;
 				break;
-			}
 			default:
-			{
 				output = ("Invalid task selection.");
-				break;
-			}
+				System.out.println("Check your switch case. The # of buttons and switch cases does not match!");
 		}
 		sp.setContent(new Text(output));
+	}
+	
+	public static void main(String[] args)
+	{
+		try
+		{
+			launch(args);
+		} catch (Exception e)
+		{
+			System.out.println(e.getLocalizedMessage());
+		}
 	}
 }
